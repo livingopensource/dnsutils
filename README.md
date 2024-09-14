@@ -1,5 +1,5 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/livingopensource/dnsutils)](https://goreportcard.com/report/livingopensource/dnsutils)
-[![](https://godoc.org/github.com/livingopensource/dnsutil?status.svg)](https://godoc.org/github.com/livingopensource/dnsutils)
+[![](https://godoc.org/github.com/livingopensource/dnsutils?status.svg)](https://godoc.org/github.com/livingopensource/dnsutils)
 
 # dnsutils
 #### Golang DNS  dig
@@ -20,7 +20,7 @@ import (
 )
 
 func main() {
-    var dig dnsutil.Dig 
+    var dig dnsutils.Dig 
     dig.SetDNS("8.8.8.8") //or ns.xxx.com 
     a, err := dig.A("google.com")  // dig google.com @8.8.8.8
     fmt.Println(a, err)
@@ -39,7 +39,7 @@ import (
 )
 
 func main() {
-	var dig dnsutil.Dig
+	var dig dnsutils.Dig
 	dig.SetDNS("1.1.1.1")
 	msg, err := dig.GetMsg(dns.TypeA, "google.com")
 	if err != nil {
@@ -68,7 +68,7 @@ import (
 )
 
 func main() {
-    var dig dnsutil.Dig
+    var dig dnsutils.Dig
     dig.SetDNS("8.8.8.8") //or ns.xxx.com
     dig.SetEDNS0ClientSubnet("123.123.123.123")   //support edns0clientsubnet
     a, err := dig.A("google.com")  // dig google.com @8.8.8.8 +client=123.123.123.123
@@ -88,7 +88,7 @@ import (
 )
 
 func main() {
-    var dig dnsutil.Dig
+    var dig dnsutils.Dig
     dig.Retry=3 //retry  when write or read message return error . defualt 1
     dig.SetDNS("8.8.8.8") //or ns.xxx.com 
     a, err := dig.A("google.com")  // dig google.com @8.8.8.8
@@ -109,7 +109,7 @@ import (
 
 func main() {
 	domain := "google.com"
-	var dig dnsutil.Dig
+	var dig dnsutils.Dig
 	rsps, err := dig.Trace(domain)  //dig +trace google.com
 	if err != nil {
 		fmt.Println(err)
@@ -141,7 +141,7 @@ import (
 )
 
 func main() {
-	polluted, err := dnsutil.IsPolluted("facebook.com")
+	polluted, err := dnsutils.IsPolluted("facebook.com")
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -166,7 +166,7 @@ import (
 )
 
 func main() {
-	var dig dnsutil.Dig
+	var dig dnsutils.Dig
 	dig.SetDNS("1.1.1.1")
 	dig.SetBackupDNS("8.8.8.8")
 	a, err := dig.A("google.com")
