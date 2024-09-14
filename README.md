@@ -1,11 +1,11 @@
-[![Go Report Card](https://goreportcard.com/badge/github.com/livingopensource/dnsutil)](https://goreportcard.com/report/livingopensource/dnsutil)
-[![](https://godoc.org/github.com/livingopensource/dnsutil?status.svg)](https://godoc.org/github.com/livingopensource/dnsutil)
+[![Go Report Card](https://goreportcard.com/badge/github.com/livingopensource/dnsutils)](https://goreportcard.com/report/livingopensource/dnsutils)
+[![](https://godoc.org/github.com/livingopensource/dnsutil?status.svg)](https://godoc.org/github.com/livingopensource/dnsutils)
 
-# dnsutil
+# dnsutils
 #### Golang DNS  dig
 
 ```sh
-go get github.com/livingopensource/dnsutil
+go get github.com/livingopensource/dnsutils
 ```
 
 
@@ -16,7 +16,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/livingopensource/dnsutil"
+	"github.com/livingopensource/dnsutils"
 )
 
 func main() {
@@ -34,7 +34,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/livingopensource/dnsutil"
+	"github.com/livingopensource/dnsutils"
 	"github.com/miekg/dns"
 )
 
@@ -64,7 +64,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/livingopensource/dnsutil"
+	"github.com/livingopensource/dnsutils"
 )
 
 func main() {
@@ -84,7 +84,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/livingopensource/dnsutil"
+	"github.com/livingopensource/dnsutils"
 )
 
 func main() {
@@ -104,7 +104,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/livingopensource/dnsutil"
+	"github.com/livingopensource/dnsutils"
 )
 
 func main() {
@@ -137,7 +137,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/livingopensource/dnsutil"
+	"github.com/livingopensource/dnsutils"
 )
 
 func main() {
@@ -162,7 +162,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/livingopensource/dnsutil"
+	"github.com/livingopensource/dnsutils"
 )
 
 func main() {

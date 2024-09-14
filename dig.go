@@ -104,7 +104,7 @@ func resolveLocalAddr(network string, laddr string) (net.Addr, error) {
 	return nil, errors.New("unknown network:" + network)
 }
 
-// NewMsg  返回query msg
+// NewMsg query msg
 func NewMsg(Type uint16, domain string) *dns.Msg {
 	return newMsg(Type, domain)
 }
@@ -123,7 +123,7 @@ func newMsg(Type uint16, domain string) *dns.Msg {
 	return msg
 }
 
-// Exchange 发送msg 接收响应
+// Exchange msg
 func (d *Dig) Exchange(m *dns.Msg) (*dns.Msg, error) {
 	if d.BackupRemoteAddr != "" {
 		return d.raceExchange(m)
@@ -224,7 +224,7 @@ func (d *Dig) SetTimeOut(t time.Duration) {
 	d.DialTimeout = t
 }
 
-// SetDNS 设置查询的dns server
+// SetDNS dns server
 // Deprecated: use At
 func (d *Dig) SetDNS(host string) error {
 	var err error
@@ -232,14 +232,14 @@ func (d *Dig) SetDNS(host string) error {
 	return err
 }
 
-// At 设置查询的dns server,同SetDNS,只是更加语义化
+// At dns server,SetDNS,
 func (d *Dig) At(host string) error {
 	var err error
 	d.RemoteAddr, err = d.lookupdns(host)
 	return err
 }
 
-// SetBackupDNS  设置后查询DNS将同时向两个server发起请求,并响应第一个收到的msg
+// SetBackupDNS server msg
 func (d *Dig) SetBackupDNS(host string) error {
 	var err error
 	d.BackupRemoteAddr, err = d.lookupdns(host)
@@ -463,7 +463,7 @@ func (d *Dig) SPF(domain string) ([]*dns.SPF, error) {
 	return S, nil
 }
 
-// GetMsg 返回msg响应体
+// GetMsg msg
 func (d *Dig) GetMsg(Type uint16, domain string) (*dns.Msg, error) {
 	m := newMsg(Type, domain)
 	return d.Exchange(m)
@@ -498,14 +498,14 @@ func (d *Dig) edns0clientsubnet(m *dns.Msg) {
 	m.Extra = append(m.Extra, o)
 }
 
-// TraceResponse  dig +trace 响应
+// TraceResponse  dig +trace
 type TraceResponse struct {
 	Server   string
 	ServerIP string
 	Msg      *dns.Msg
 }
 
-// Trace  类似于 dig +trace -t msqType
+// Trace  dig +trace -t msqType
 func (d *Dig) TraceForRecord(domain string, msgType uint16) ([]TraceResponse, error) {
 	var responses = make([]TraceResponse, 0)
 	var servers = make([]string, 0, 13)
@@ -542,7 +542,7 @@ func (d *Dig) TraceForRecord(domain string, msgType uint16) ([]TraceResponse, er
 	}
 }
 
-// Trace  类似于 dig +trace
+// Trace  dig +trace
 func (d *Dig) Trace(domain string) ([]TraceResponse, error) {
 	return d.TraceForRecord(domain, dns.TypeA)
 }
@@ -559,7 +559,7 @@ func randserver(servers []string) string {
 	return servers[r.Intn(length)]
 }
 
-// IsPolluted  返回domain是否被污染
+// IsPolluted  domain
 func IsPolluted(domain string) (bool, error) {
 	var dig Dig
 	rsps, err := dig.Trace(domain)
