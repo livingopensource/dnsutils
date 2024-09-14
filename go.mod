@@ -1,4 +1,4 @@
-module github.com/livingopensource/dnsutil
+module github.com/livingopensource/dnsutils
 
 go 1.21.0
 

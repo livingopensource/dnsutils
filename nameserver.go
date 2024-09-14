@@ -1,6 +1,7 @@
+//go:build !windows
 // +build !windows
 
-package dnsutil
+package dnsutils
 
 import (
 	"bufio"

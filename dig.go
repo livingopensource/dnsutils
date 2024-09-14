@@ -1,4 +1,4 @@
-package dnsutil
+package dnsutils
 
 import (
 	"context"
@@ -18,7 +18,7 @@ const (
 
 var roots = []string{"a.root-servers.net", "b.root-servers.net", "d.root-servers.net", "c.root-servers.net", "e.root-servers.net", "f.root-servers.net", "g.root-servers.net", "h.root-servers.net", "i.root-servers.net", "j.root-servers.net", "k.root-servers.net", "l.root-servers.net", "m.root-servers.net"}
 
-//Dig dig
+// Dig dig
 type Dig struct {
 	LocalAddr        string
 	RemoteAddr       string
@@ -104,7 +104,7 @@ func resolveLocalAddr(network string, laddr string) (net.Addr, error) {
 	return nil, errors.New("unknown network:" + network)
 }
 
-//NewMsg  返回query msg
+// NewMsg  返回query msg
 func NewMsg(Type uint16, domain string) *dns.Msg {
 	return newMsg(Type, domain)
 }
@@ -123,7 +123,7 @@ func newMsg(Type uint16, domain string) *dns.Msg {
 	return msg
 }
 
-//Exchange 发送msg 接收响应
+// Exchange 发送msg 接收响应
 func (d *Dig) Exchange(m *dns.Msg) (*dns.Msg, error) {
 	if d.BackupRemoteAddr != "" {
 		return d.raceExchange(m)
@@ -217,29 +217,29 @@ func (d *Dig) exchange(ctx context.Context, m *dns.Msg) (*dns.Msg, error) {
 	return res, nil
 }
 
-//SetTimeOut set read write dial timeout
+// SetTimeOut set read write dial timeout
 func (d *Dig) SetTimeOut(t time.Duration) {
 	d.ReadTimeout = t
 	d.WriteTimeout = t
 	d.DialTimeout = t
 }
 
-//SetDNS 设置查询的dns server
-//Deprecated: use At
+// SetDNS 设置查询的dns server
+// Deprecated: use At
 func (d *Dig) SetDNS(host string) error {
 	var err error
 	d.RemoteAddr, err = d.lookupdns(host)
 	return err
 }
 
-//At 设置查询的dns server,同SetDNS,只是更加语义化
+// At 设置查询的dns server,同SetDNS,只是更加语义化
 func (d *Dig) At(host string) error {
 	var err error
 	d.RemoteAddr, err = d.lookupdns(host)
 	return err
 }
 
-//SetBackupDNS  设置后查询DNS将同时向两个server发起请求,并响应第一个收到的msg
+// SetBackupDNS  设置后查询DNS将同时向两个server发起请求,并响应第一个收到的msg
 func (d *Dig) SetBackupDNS(host string) error {
 	var err error
 	d.BackupRemoteAddr, err = d.lookupdns(host)
@@ -277,7 +277,7 @@ func (d *Dig) lookupdns(host string) (string, error) {
 
 }
 
-//SetEDNS0ClientSubnet  +client
+// SetEDNS0ClientSubnet  +client
 func (d *Dig) SetEDNS0ClientSubnet(clientip string) error {
 	ip := net.ParseIP(clientip)
 	if ip.To4() == nil && ip.To16() == nil {
@@ -287,7 +287,7 @@ func (d *Dig) SetEDNS0ClientSubnet(clientip string) error {
 	return nil
 }
 
-//A dig a
+// A dig a
 func (d *Dig) A(domain string) ([]*dns.A, error) {
 	m := newMsg(dns.TypeA, domain)
 	res, err := d.Exchange(m)
@@ -303,7 +303,7 @@ func (d *Dig) A(domain string) ([]*dns.A, error) {
 	return As, nil
 }
 
-//SOA dig soa
+// SOA dig soa
 func (d *Dig) SOA(domain string) ([]*dns.SOA, error) {
 	m := newMsg(dns.TypeSOA, domain)
 	res, err := d.Exchange(m)
@@ -319,7 +319,7 @@ func (d *Dig) SOA(domain string) ([]*dns.SOA, error) {
 	return As, nil
 }
 
-//NS dig ns
+// NS dig ns
 func (d *Dig) NS(domain string) ([]*dns.NS, error) {
 	m := newMsg(dns.TypeNS, domain)
 	res, err := d.Exchange(m)
@@ -335,7 +335,7 @@ func (d *Dig) NS(domain string) ([]*dns.NS, error) {
 	return Ns, nil
 }
 
-//CNAME dig cname
+// CNAME dig cname
 func (d *Dig) CNAME(domain string) ([]*dns.CNAME, error) {
 	m := newMsg(dns.TypeCNAME, domain)
 	res, err := d.Exchange(m)
@@ -351,7 +351,7 @@ func (d *Dig) CNAME(domain string) ([]*dns.CNAME, error) {
 	return C, nil
 }
 
-//PTR dig ptr
+// PTR dig ptr
 func (d *Dig) PTR(domain string) ([]*dns.PTR, error) {
 	m := newMsg(dns.TypePTR, domain)
 	res, err := d.Exchange(m)
@@ -367,7 +367,7 @@ func (d *Dig) PTR(domain string) ([]*dns.PTR, error) {
 	return P, nil
 }
 
-//TXT dig txt
+// TXT dig txt
 func (d *Dig) TXT(domain string) ([]*dns.TXT, error) {
 	m := newMsg(dns.TypeTXT, domain)
 	res, err := d.Exchange(m)
@@ -383,7 +383,7 @@ func (d *Dig) TXT(domain string) ([]*dns.TXT, error) {
 	return T, nil
 }
 
-//AAAA dig aaaa
+// AAAA dig aaaa
 func (d *Dig) AAAA(domain string) ([]*dns.AAAA, error) {
 	m := newMsg(dns.TypeAAAA, domain)
 	res, err := d.Exchange(m)
@@ -399,7 +399,7 @@ func (d *Dig) AAAA(domain string) ([]*dns.AAAA, error) {
 	return aaaa, nil
 }
 
-//MX dig mx
+// MX dig mx
 func (d *Dig) MX(domain string) ([]*dns.MX, error) {
 	msg := newMsg(dns.TypeMX, domain)
 	res, err := d.Exchange(msg)
@@ -415,7 +415,7 @@ func (d *Dig) MX(domain string) ([]*dns.MX, error) {
 	return M, nil
 }
 
-//SRV dig srv
+// SRV dig srv
 func (d *Dig) SRV(domain string) ([]*dns.SRV, error) {
 	msg := newMsg(dns.TypeSRV, domain)
 	res, err := d.Exchange(msg)
@@ -431,7 +431,7 @@ func (d *Dig) SRV(domain string) ([]*dns.SRV, error) {
 	return S, nil
 }
 
-//CAA dig caa
+// CAA dig caa
 func (d *Dig) CAA(domain string) ([]*dns.CAA, error) {
 	msg := newMsg(dns.TypeCAA, domain)
 	res, err := d.Exchange(msg)
@@ -447,7 +447,7 @@ func (d *Dig) CAA(domain string) ([]*dns.CAA, error) {
 	return C, nil
 }
 
-//SPF dig spf
+// SPF dig spf
 func (d *Dig) SPF(domain string) ([]*dns.SPF, error) {
 	msg := newMsg(dns.TypeSPF, domain)
 	res, err := d.Exchange(msg)
@@ -463,7 +463,7 @@ func (d *Dig) SPF(domain string) ([]*dns.SPF, error) {
 	return S, nil
 }
 
-//GetMsg 返回msg响应体
+// GetMsg 返回msg响应体
 func (d *Dig) GetMsg(Type uint16, domain string) (*dns.Msg, error) {
 	m := newMsg(Type, domain)
 	return d.Exchange(m)
@@ -498,14 +498,14 @@ func (d *Dig) edns0clientsubnet(m *dns.Msg) {
 	m.Extra = append(m.Extra, o)
 }
 
-//TraceResponse  dig +trace 响应
+// TraceResponse  dig +trace 响应
 type TraceResponse struct {
 	Server   string
 	ServerIP string
 	Msg      *dns.Msg
 }
 
-//Trace  类似于 dig +trace -t msqType
+// Trace  类似于 dig +trace -t msqType
 func (d *Dig) TraceForRecord(domain string, msgType uint16) ([]TraceResponse, error) {
 	var responses = make([]TraceResponse, 0)
 	var servers = make([]string, 0, 13)
@@ -542,7 +542,7 @@ func (d *Dig) TraceForRecord(domain string, msgType uint16) ([]TraceResponse, er
 	}
 }
 
-//Trace  类似于 dig +trace
+// Trace  类似于 dig +trace
 func (d *Dig) Trace(domain string) ([]TraceResponse, error) {
 	return d.TraceForRecord(domain, dns.TypeA)
 }
@@ -559,7 +559,7 @@ func randserver(servers []string) string {
 	return servers[r.Intn(length)]
 }
 
-//IsPolluted  返回domain是否被污染
+// IsPolluted  返回domain是否被污染
 func IsPolluted(domain string) (bool, error) {
 	var dig Dig
 	rsps, err := dig.Trace(domain)
